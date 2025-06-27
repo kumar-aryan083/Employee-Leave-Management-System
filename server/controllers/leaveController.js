@@ -128,3 +128,22 @@ export const approveOrRejectLeave = async (req, res) => {
       .json({ message: "Error processing leave request", error: err.message });
   }
 };
+
+export const getApprovedLeaves = async (req, res) => {
+  try {
+    const leaves = await LeaveRequest.find({ status: 'approved' })
+      .populate('user', 'name email')
+      .sort({ startDate: 1 });
+
+    const calendarEvents = leaves.map(leave => ({
+      title: `${leave.user.name} - ${leave.leaveType}`,
+      start: leave.startDate,
+      end: leave.endDate,
+      allDay: true
+    }));
+
+    res.status(200).json(calendarEvents);
+  } catch (err) {
+    res.status(500).json({ message: 'Error loading approved leaves', error: err.message });
+  }
+};
