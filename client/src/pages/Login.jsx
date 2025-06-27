@@ -1,0 +1,68 @@
+import { useContext, useState } from "react";
+import axios from "../api/axiosInstance";
+import { Link, useNavigate } from "react-router-dom";
+import "./styles/Login.css";
+import { AuthContext } from "../auth/authContext";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+
+const Login = () => {
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({ email: "", password: "" });
+
+  useEffect(() => {
+    document.title = "Login";
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+    try {
+      const res = await axios.post("/auth/login", formData);
+      console.log("response: ", res);
+      login(res.data.token);
+      toast.success(res.data.message);
+      navigate("/");
+    } catch (err) {
+      const serverMsg =
+        err?.response?.data?.message ||
+        "Login failed. Please try again.";
+      toast.error(serverMsg);
+    }
+  };
+
+  return (
+    <div className="login-page">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h2>Login</h2>
+
+        <input
+          type="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          required
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={(e) =>
+            setFormData({ ...formData, password: e.target.value })
+          }
+          required
+        />
+
+        <button type="submit">Login</button>
+        <p className="redirect">
+          Don't have an account? <Link to="/register">Register</Link>
+        </p>
+      </form>
+    </div>
+  );
+};
+
+export default Login;

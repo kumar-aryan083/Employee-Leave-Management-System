@@ -28,3 +28,11 @@ export const resetLeaveBalance = async (req, res) => {
     res.status(500).json({ message: 'Error resetting leave', error: error.message });
   }
 };
+export const getAllManagers = async (req, res) => {
+  try {
+    const managers = await User.find({ role: 'manager' }).select('_id name');
+    res.status(200).json(managers);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch managers' });
+  }
+};
