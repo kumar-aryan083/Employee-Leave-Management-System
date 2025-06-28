@@ -147,3 +147,24 @@ export const getApprovedLeaves = async (req, res) => {
     res.status(500).json({ message: 'Error loading approved leaves', error: err.message });
   }
 };
+
+export const getLeaveBalance = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    const user = await User.findById(userId).select("leaveBalance");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({
+      vacation: user.leaveBalance.vacation,
+      sick: user.leaveBalance.sick,
+      other: user.leaveBalance.other,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error fetching leave balance" });
+  }
+};

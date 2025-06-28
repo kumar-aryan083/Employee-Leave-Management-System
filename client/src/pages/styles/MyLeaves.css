@@ -1,0 +1,122 @@
+.my-leaves-page {
+  min-height: calc(100vh - 78px);
+  background: linear-gradient(to right, #b6b6c2, #2e2e48);
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  /* No align-items: center, so content starts from top */
+}
+
+.my-leaves-card {
+  background-color: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 900px;
+  width: 100%;
+  max-height: 75vh;   /* ✅ Card height limit */
+  overflow-y: auto;   /* ✅ Scrolls if table too tall */
+}
+.my-leaves-card::-webkit-scrollbar{
+    display: none;
+}
+
+.my-leaves-card h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.my-leaves-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.my-leaves-card th,
+.my-leaves-card td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.95rem;
+}
+
+.my-leaves-card th {
+  background-color: #f4f4f4;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status.pending {
+  background-color: #f0ad4e;
+}
+
+.status.approved {
+  background-color: #5cb85c;
+}
+
+.status.rejected {
+  background-color: #d9534f;
+}
+
+/* Responsive: Stack table on small screens */
+@media (max-width: 768px) {
+  .my-leaves-card {
+    padding: 1rem;
+  }
+
+  .my-leaves-card table,
+  .my-leaves-card thead,
+  .my-leaves-card tbody,
+  .my-leaves-card th,
+  .my-leaves-card td,
+  .my-leaves-card tr {
+    display: block;
+  }
+
+  .my-leaves-card thead tr {
+    display: none;
+  }
+
+  .my-leaves-card td {
+    position: relative;
+    padding-left: 50%;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .my-leaves-card td:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    padding-left: 1rem;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  .my-leaves-card td:nth-of-type(1):before { content: "Start"; }
+  .my-leaves-card td:nth-of-type(2):before { content: "End"; }
+  .my-leaves-card td:nth-of-type(3):before { content: "Type"; }
+  .my-leaves-card td:nth-of-type(4):before { content: "Reason"; }
+  .my-leaves-card td:nth-of-type(5):before { content: "Status"; }
+}
+
+/* Optional: Scrollbar style */
+.my-leaves-card::-webkit-scrollbar {
+  width: 8px;
+}
+
+.my-leaves-card::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
