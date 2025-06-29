@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "../api/axiosInstance";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./styles/Register.css";
+import { AuthContext } from "../auth/authContext";
 
 const Register = () => {
+  const {user} = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -20,6 +22,10 @@ const Register = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if(user){
+      toast("Logout first to Register!!")
+      navigate("/");
+    }
     document.title = "Register";
     const fetchManagers = async () => {
       try {

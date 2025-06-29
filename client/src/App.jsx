@@ -10,12 +10,15 @@ import MyLeaves from './pages/MyLeaves';
 import LeaveBalance from './pages/LeaveBalance';
 import PendingRequests from './pages/PendingRequests';
 import ResetBalances from './pages/ResetBalances';
+import Home from './pages/Home';
+import NotFound from './components/NotFound';
 
 const App = () => {
   return (
     <AuthProvider>
       <Navbar />
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/leave-request" element={<LeaveRequest />} />
@@ -23,7 +26,7 @@ const App = () => {
           <Route path="/leave-balance" element={<LeaveBalance />} />
           <Route path="/pending" element={<PendingRequests />} />
           <Route path="/reset-leave" element={<ResetBalances />} />
-          {/* <Route path="/*" element={<Dashboard />} /> */}
+          <Route path="*" element={<NotFound />} /> 
         </Routes>
         <ToastContainer position="bottom-right" autoClose={3000} hideProgressBar theme="dark" />
     </AuthProvider>

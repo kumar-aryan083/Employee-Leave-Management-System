@@ -7,12 +7,16 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
+  const { login, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   useEffect(() => {
+    if(user){
+      toast("Logout first to login again!!")
+      navigate("/");
+    }
     document.title = "Login";
   }, []);
 
