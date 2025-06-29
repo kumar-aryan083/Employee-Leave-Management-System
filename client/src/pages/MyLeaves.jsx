@@ -104,6 +104,7 @@ const MyLeaves = () => {
           <table>
             <thead>
               <tr>
+                <th>S.No.</th>
                 <th>Start</th>
                 <th>End</th>
                 <th>Type</th>
@@ -113,8 +114,9 @@ const MyLeaves = () => {
               </tr>
             </thead>
             <tbody>
-              {leaves.map((leave) => (
+              {leaves.map((leave, index) => (
                 <tr key={leave._id}>
+                  <td>{index+1}</td>
                   <td>{new Date(leave.startDate).toLocaleDateString()}</td>
                   <td>{new Date(leave.endDate).toLocaleDateString()}</td>
                   <td>{leave.leaveType}</td>

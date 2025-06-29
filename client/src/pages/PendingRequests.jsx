@@ -78,6 +78,7 @@ const PendingRequests = () => {
             <table>
               <thead>
                 <tr>
+                  <th>S.No.</th>
                   <th>Employee</th>
                   <th>Type</th>
                   <th>Start</th>
@@ -87,8 +88,9 @@ const PendingRequests = () => {
                 </tr>
               </thead>
               <tbody>
-                {requests.map((leave) => (
+                {requests.map((leave, index) => (
                   <tr key={leave._id}>
+                    <td>{index+1}</td>
                     <td>{leave.user?.name || "N/A"}</td>
                     <td>{leave.leaveType}</td>
                     <td>{new Date(leave.startDate).toLocaleDateString()}</td>
@@ -117,8 +119,8 @@ const PendingRequests = () => {
       </div>
 
       {selectedLeaveId && (
-        <div className="modal-overlay">
-          <div className="modal-content">
+        <div className="pending-modal-overlay">
+          <div className="pending-modal-content">
             <h3>
               Confirm{" "}
               {selectedAction.charAt(0).toUpperCase() + selectedAction.slice(1)}
@@ -128,7 +130,7 @@ const PendingRequests = () => {
               value={managerComment}
               onChange={(e) => setManagerComment(e.target.value)}
             />
-            <div className="modal-actions">
+            <div className="pending-modal-actions">
               <button onClick={handleConfirm} className="approve-btn">
                 Confirm
               </button>

@@ -1,5 +1,5 @@
 .notfound-page {
-  min-height: calc(100vh - 78px);
+  min-height: calc(100vh - 70px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,4 +42,36 @@
   background-color: #fff;
   color: #1e1e2f;
   border: 2px solid #1e1e2f;
+}
+@media (max-width: 768px) {
+  .notfound-page h1 {
+    font-size: 4rem;
+  }
+
+  .notfound-page h2 {
+    font-size: 1.5rem;
+  }
+
+  .notfound-page p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .notfound-page h1 {
+    font-size: 3rem;
+  }
+
+  .notfound-page h2 {
+    font-size: 1.2rem;
+  }
+
+  .notfound-page p {
+    font-size: 0.95rem;
+  }
+
+  .back-home-btn {
+    padding: 0.65rem 1.5rem;
+    font-size: 0.95rem;
+  }
 }

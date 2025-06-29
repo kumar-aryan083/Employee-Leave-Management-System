@@ -89,6 +89,7 @@ const ResetBalances = () => {
           <table>
             <thead>
               <tr>
+                <th>S.No.</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Vacation</th>
@@ -98,8 +99,9 @@ const ResetBalances = () => {
               </tr>
             </thead>
             <tbody>
-              {employees.map((emp) => (
+              {employees.map((emp, index) => (
                 <tr key={emp._id}>
+                  <td>{index+1}</td>
                   <td>{emp.name}</td>
                   <td>{emp.email}</td>
                   <td>{emp.leaveBalance.vacation}</td>

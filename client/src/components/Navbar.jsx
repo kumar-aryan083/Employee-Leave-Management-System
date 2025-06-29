@@ -11,7 +11,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    toast.success("Logged out successfully!")
+    toast.success("Logged out successfully!");
     navigate("/login");
     setMenuOpen(false);
   };
@@ -41,8 +41,7 @@ const Navbar = () => {
 
         {user && (
           <>
-            <span>👋 {user?.role?.toUpperCase()}</span>
-
+            <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
             {user.role === "employee" && (
               <>
                 <Link to="/leave-request" onClick={() => setMenuOpen(false)}>
@@ -56,7 +55,6 @@ const Navbar = () => {
                 </Link>
               </>
             )}
-
             {user.role === "manager" && (
               <>
                 <Link to="/pending" onClick={() => setMenuOpen(false)}>
@@ -70,7 +68,6 @@ const Navbar = () => {
                 </Link>
               </>
             )}
-
             <button onClick={handleLogout}>Logout</button>
           </>
         )}

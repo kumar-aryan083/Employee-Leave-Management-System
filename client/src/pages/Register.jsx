@@ -87,25 +87,27 @@ const Register = () => {
           required
         />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={(e) =>
-            setFormData({ ...formData, password: e.target.value })
-          }
-          required
-        />
+        <div className="password-group">
+  <input
+    type="password"
+    placeholder="Password"
+    value={formData.password}
+    onChange={(e) =>
+      setFormData({ ...formData, password: e.target.value })
+    }
+    required
+  />
 
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={formData.confirmPassword}
-          onChange={(e) =>
-            setFormData({ ...formData, confirmPassword: e.target.value })
-          }
-          required
-        />
+  <input
+    type="password"
+    placeholder="Confirm Password"
+    value={formData.confirmPassword}
+    onChange={(e) =>
+      setFormData({ ...formData, confirmPassword: e.target.value })
+    }
+    required
+  />
+</div>
 
         <select
           value={formData.role}

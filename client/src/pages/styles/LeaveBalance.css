@@ -1,8 +1,9 @@
 .leave-balance-page {
-  min-height: calc(100vh - 78px);
+  min-height: calc(100vh - 70px);
   background: linear-gradient(to right, #b6b6c2, #2e2e48);
   display: flex;
   justify-content: center;
+  align-items: center; 
   padding: 2rem;
 }
 
@@ -14,16 +15,17 @@
   max-width: 420px;
   width: 100%;
   text-align: center;
-  height: fit-content;
   overflow-y: auto;
 }
-.leave-balance-card::-webkit-scrollbar{
-    display: none;
+
+.leave-balance-card::-webkit-scrollbar {
+  display: none;
 }
 
 .leave-balance-card h2 {
   margin-bottom: 1rem;
   color: #333;
+  font-size: 1.8rem;
 }
 
 .balance-list {
@@ -38,7 +40,7 @@
   background: #f4f4f4;
   padding: 0.75rem 1rem;
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 1.05rem;
 }
 
 .balance-item span {
@@ -48,4 +50,25 @@
 
 .balance-item strong {
   color: #1e1e2f;
+}
+
+@media (max-width: 480px) {
+  .leave-balance-card {
+    padding: 1.5rem 1.2rem;
+  }
+
+  .leave-balance-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .balance-item {
+    flex-direction: column;
+    text-align: left;
+    gap: 0.3rem;
+  }
+
+  .balance-item span,
+  .balance-item strong {
+    font-size: 1rem;
+  }
 }

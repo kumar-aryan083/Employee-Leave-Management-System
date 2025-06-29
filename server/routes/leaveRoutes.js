@@ -20,6 +20,6 @@ router.put("/update-leave/:id", protect, updateLeaveRequest);
 router.get("/balance", protect, getLeaveBalance);
 router.get("/pending", protect, isManager, getPendingLeaves);
 router.patch("/:id/approve", protect, isManager, approveOrRejectLeave);
-router.get("/calendar", protect, getApprovedLeaves);
+router.get("/calendar", protect, isManager, getApprovedLeaves);
 
 export default router;

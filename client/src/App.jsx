@@ -12,6 +12,7 @@ import PendingRequests from './pages/PendingRequests';
 import ResetBalances from './pages/ResetBalances';
 import Home from './pages/Home';
 import NotFound from './components/NotFound';
+import LeaveCalendar from './pages/LeaveCalendar';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/leave-balance" element={<LeaveBalance />} />
           <Route path="/pending" element={<PendingRequests />} />
           <Route path="/reset-leave" element={<ResetBalances />} />
+          <Route path="/calendar" element={<LeaveCalendar />} />
           <Route path="*" element={<NotFound />} /> 
         </Routes>
         <ToastContainer position="bottom-right" autoClose={3000} hideProgressBar theme="dark" />

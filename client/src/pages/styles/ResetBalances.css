@@ -1,5 +1,5 @@
 .reset-balances-page {
-  min-height: calc(100vh - 78px);
+  min-height: calc(100vh - 70px);
   background: linear-gradient(to right, #b6b6c2, #2e2e48);
   padding: 2rem;
   display: flex;
@@ -52,7 +52,6 @@
   background-color: #0069d9;
 }
 
-/* Modal */
 .reset-modal-overlay {
   position: fixed;
   top: 0;
@@ -115,4 +114,92 @@
 
 .reset-reject-btn:hover {
   background-color: #c82333;
+}
+@media (max-width: 768px) {
+  .reset-balances-card {
+    padding: 1rem;
+  }
+
+  .reset-balances-card table,
+  .reset-balances-card thead,
+  .reset-balances-card tbody,
+  .reset-balances-card th,
+  .reset-balances-card td,
+  .reset-balances-card tr {
+    display: block;
+    width: 100%;
+  }
+
+  .reset-balances-card thead tr {
+    display: none;
+  }
+
+  .reset-balances-card tbody tr {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+  }
+
+  .reset-balances-card td {
+    position: relative;
+    padding: 0.75rem 1rem 0.75rem 50%;
+    border: none;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .reset-balances-card td:before {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    white-space: nowrap;
+    color: #333;
+  }
+
+  .reset-balances-card td:nth-of-type(1):before { content: "S.No."; }
+  .reset-balances-card td:nth-of-type(2):before { content: "Name"; }
+  .reset-balances-card td:nth-of-type(3):before { content: "Email"; }
+  .reset-balances-card td:nth-of-type(4):before { content: "Vacation"; }
+  .reset-balances-card td:nth-of-type(5):before { content: "Sick"; }
+  .reset-balances-card td:nth-of-type(6):before { content: "Other"; }
+  .reset-balances-card td:nth-of-type(7):before { content: "Actions"; }
+
+  .reset-balances-card td:last-child {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .reset-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .reset-modal-content {
+    padding: 1rem;
+    max-width: 90%;
+  }
+
+  .reset-modal-content input {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  .reset-modal-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .reset-modal-actions button {
+    width: 100%;
+  }
 }
