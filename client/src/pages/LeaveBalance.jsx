@@ -2,11 +2,17 @@ import { useEffect, useState } from "react";
 import axios from "../api/axiosInstance";
 import { toast } from "react-toastify";
 import "./styles/LeaveBalance.css";
+import { useContext } from "react";
+import { AuthContext } from "../auth/authContext";
+import { useNavigate, useRouteLoaderData } from "react-router-dom";
 
 const LeaveBalance = () => {
+  const {user} = useContext(AuthContext);
   const [balance, setBalance] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    document.title = "My Leave Balance";
     const fetchBalance = async () => {
       try {
         const res = await axios.get("/leave/balance");
@@ -18,6 +24,13 @@ const LeaveBalance = () => {
 
     fetchBalance();
   }, []);
+  useEffect(()=>{
+    if (!user) {
+          toast.error("Login first to access this page");
+          navigate("/");
+          return;
+        }
+  },[user])
 
   return (
     <div className="leave-balance-page">

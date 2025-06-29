@@ -36,7 +36,6 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    console.log(formData);
 
     if (formData.password !== formData.confirmPassword) {
       toast.error("Passwords do not match.");

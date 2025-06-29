@@ -4,7 +4,6 @@
   padding: 2rem;
   display: flex;
   justify-content: center;
-  /* No align-items: center, so content starts from top */
 }
 
 .my-leaves-card {
@@ -12,10 +11,10 @@
   padding: 2rem 2.5rem;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  max-width: 900px;
+  max-width: 1100px;
   width: 100%;
-  max-height: 75vh;   /* ✅ Card height limit */
-  overflow-y: auto;   /* ✅ Scrolls if table too tall */
+  max-height: 75vh;   
+  overflow-y: auto;   
 }
 .my-leaves-card::-webkit-scrollbar{
     display: none;
@@ -67,8 +66,111 @@
 .status.rejected {
   background-color: #d9534f;
 }
+.delete-icon {
+  margin-left: 20px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color 0.2s ease;
+}
 
-/* Responsive: Stack table on small screens */
+.delete-icon:hover {
+  color: #c82333;
+}
+.edit-icon {
+  margin-left: 20px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color 0.2s ease;
+}
+
+.edit-icon:hover {
+  color: #0056b3;
+}
+
+.edit-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.edit-modal-content {
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.edit-modal-content h3 {
+  margin-bottom: 0.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.edit-modal-content input,
+.edit-modal-content textarea,
+.edit-modal-content select {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+.edit-modal-content input:focus,
+.edit-modal-content textarea:focus,
+.edit-modal-content select:focus {
+  outline: none;
+  border-color: #1e1e2f;
+}
+
+.edit-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.edit-modal-actions button {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.edit-modal-actions .approve-btn {
+  background-color: #1e1e2f;
+  color: #fff;
+}
+
+.edit-modal-actions .approve-btn:hover {
+  background-color: #2e2e48;
+}
+
+.edit-modal-actions .reject-btn {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.edit-modal-actions .reject-btn:hover {
+  background-color: #c82333;
+}
+
+
 @media (max-width: 768px) {
   .my-leaves-card {
     padding: 1rem;
@@ -111,7 +213,6 @@
   .my-leaves-card td:nth-of-type(5):before { content: "Status"; }
 }
 
-/* Optional: Scrollbar style */
 .my-leaves-card::-webkit-scrollbar {
   width: 8px;
 }

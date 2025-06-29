@@ -36,3 +36,49 @@ export const getAllManagers = async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch managers' });
   }
 };
+export const getManagedEmployees = async (req, res) => {
+  try {
+    if (req.user.role !== "manager") {
+      return res.status(403).json({ message: "Access denied" });
+    }
+
+    const employees = await User.find({ manager: req.user.userId}).select(
+      "name email leaveBalance"
+    );
+
+    res.json(employees);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error fetching employees" });
+  }
+};
+export const resetEmployeeLeaveBalance = async (req, res) => {
+  try {
+    if (req.user.role !== "manager") {
+      return res.status(403).json({ message: "Access denied" });
+    }
+
+    const { employeeId } = req.params;
+    const { vacation, sick, other } = req.body;
+
+    const employee = await User.findOne({
+      _id: employeeId,
+      manager: req.user.userId
+    });
+
+    if (!employee) {
+      return res.status(404).json({ message: "Employee not found" });
+    }
+
+    employee.leaveBalance.vacation = vacation;
+    employee.leaveBalance.sick = sick;
+    employee.leaveBalance.other = other;
+
+    await employee.save();
+
+    res.json({ message: "Leave balance updated successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error updating balance" });
+  }
+};

@@ -18,10 +18,8 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     try {
       const res = await axios.post("/auth/login", formData);
-      console.log("response: ", res);
       login(res.data.token);
       toast.success(res.data.message);
       navigate("/");

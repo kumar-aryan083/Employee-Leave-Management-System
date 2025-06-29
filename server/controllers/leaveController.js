@@ -88,7 +88,7 @@ export const getPendingLeaves = async (req, res) => {
 };
 
 export const approveOrRejectLeave = async (req, res) => {
-  try {
+   try {
     const { id } = req.params;
     const { status, managerComment } = req.body;
 
@@ -97,19 +97,31 @@ export const approveOrRejectLeave = async (req, res) => {
     }
 
     const leave = await LeaveRequest.findById(id).populate("user");
-    if (!leave)
+    if (!leave) {
       return res.status(404).json({ message: "Leave request not found" });
+    }
 
-    leave.status = status;
-    leave.managerComment = managerComment || "";
-    await leave.save();
+    const days =
+      (new Date(leave.endDate) - new Date(leave.startDate)) /
+        (1000 * 60 * 60 * 24) +
+      1;
 
-    // Optional: Update leave balance only if approved
     if (status === "approved") {
-      const days =
-        (new Date(leave.endDate) - new Date(leave.startDate)) /
-          (1000 * 60 * 60 * 24) +
-        1;
+      let hasEnoughBalance = false;
+
+      if (leave.leaveType === "vacation") {
+        hasEnoughBalance = leave.user.leaveBalance.vacation >= days;
+      } else if (leave.leaveType === "sick") {
+        hasEnoughBalance = leave.user.leaveBalance.sick >= days;
+      } else if (leave.leaveType === "other") {
+        hasEnoughBalance = leave.user.leaveBalance.other >= days;
+      }
+
+      if (!hasEnoughBalance) {
+        return res.status(400).json({
+          message: `Insufficient ${leave.leaveType} leave balance for this request`,
+        });
+      }
 
       if (leave.leaveType === "vacation") {
         leave.user.leaveBalance.vacation -= days;
@@ -118,14 +130,20 @@ export const approveOrRejectLeave = async (req, res) => {
       } else if (leave.leaveType === "other") {
         leave.user.leaveBalance.other -= days;
       }
+
       await leave.user.save();
     }
 
+    leave.status = status;
+    leave.managerComment = managerComment || "";
+    await leave.save();
+
     res.status(200).json({ message: `Leave ${status} successfully` });
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Error processing leave request", error: err.message });
+    res.status(500).json({
+      message: "Error processing leave request",
+      error: err.message,
+    });
   }
 };
 
@@ -166,5 +184,62 @@ export const getLeaveBalance = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error fetching leave balance" });
+  }
+};
+
+export const deleteLeaveRequest = async (req, res) => {
+  try {
+    const leave = await LeaveRequest.findById(req.params.id);
+
+    if (!leave) {
+      return res.status(404).json({ message: "Leave request not found" });
+    }
+
+    if (leave.user.toString() !== req.user.userId) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    if (leave.status !== "pending") {
+      return res.status(400).json({ message: "Cannot delete non-pending leave" });
+    }
+
+    await leave.deleteOne();
+
+    res.json({ message: "Leave request deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+export const updateLeaveRequest = async (req, res) => {
+  try {
+    const leave = await LeaveRequest.findById(req.params.id);
+
+    if (!leave) {
+      return res.status(404).json({ message: "Leave request not found" });
+    }
+
+    if (leave.user.toString() !== req.user.userId) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    if (leave.status !== "pending") {
+      return res.status(400).json({ message: "Cannot edit non-pending leave" });
+    }
+
+    const { leaveType, startDate, endDate, reason } = req.body;
+
+    leave.leaveType = leaveType;
+    leave.startDate = startDate;
+    leave.endDate = endDate;
+    leave.reason = reason;
+
+    await leave.save();
+
+    res.json({ message: "Leave request updated successfully", leave });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 };

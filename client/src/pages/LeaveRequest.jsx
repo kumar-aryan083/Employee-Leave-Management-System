@@ -2,14 +2,29 @@ import { useState } from "react";
 import axios from "../api/axiosInstance";
 import { toast } from "react-toastify";
 import "./styles/LeaveRequest.css";
+import { useEffect } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../auth/authContext";
+import { useNavigate } from "react-router-dom";
 
 const LeaveRequest = () => {
+  const { user } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     startDate: "",
     endDate: "",
     reason: "",
     leaveType: "",
   });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      toast.error("Login first to access this page");
+      navigate("/"); 
+      return;
+    }
+    document.title = "Submit Leave Request";
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
