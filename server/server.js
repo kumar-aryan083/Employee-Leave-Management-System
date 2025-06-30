@@ -16,7 +16,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/leave', leaveRoutes);
 app.use('/api/user', userRoutes);
 app.get('/', (req, res)=>{
-    res.send("Hello HyScaler")
+    res.send("Hello, This is the backend of HyScaler Employee leave management system.")
 })
 
 mongoose.connect(process.env.MONGO_URI)
