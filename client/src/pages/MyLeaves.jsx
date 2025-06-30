@@ -7,11 +7,13 @@ import { AuthContext } from "../auth/authContext";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
+import Loader from "../components/Loader";
 
 const MyLeaves = () => {
   const { user } = useContext(AuthContext);
   const [leaves, setLeaves] = useState([]);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [editData, setEditData] = useState({
     id: "",
     startDate: "",
@@ -23,11 +25,14 @@ const MyLeaves = () => {
   useEffect(() => {
     document.title = "My Leave Requests";
     const fetchLeaves = async () => {
+      setLoading(true);
       try {
         const res = await axios.get("/leave/my-requests");
         setLeaves(res.data);
       } catch (err) {
         toast.error("Failed to load your leaves.");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -37,7 +42,7 @@ const MyLeaves = () => {
   useEffect(() => {
     if (!user) {
       toast.error("Login first to access this page");
-      navigate("/"); 
+      navigate("/");
       return;
     }
   }, [user]);
@@ -63,7 +68,7 @@ const MyLeaves = () => {
       startDate: leave.startDate.split("T")[0],
       endDate: leave.endDate.split("T")[0],
       reason: leave.reason,
-      leaveType: leave.leaveType, 
+      leaveType: leave.leaveType,
     });
     setEditModalOpen(true);
   };
@@ -98,7 +103,9 @@ const MyLeaves = () => {
       <div className="my-leaves-card">
         <h2>My Leave Requests</h2>
 
-        {leaves.length === 0 ? (
+        {loading ? (
+          <Loader />
+        ) : leaves.length === 0 ? (
           <p>No leave requests found.</p>
         ) : (
           <table>
@@ -116,7 +123,7 @@ const MyLeaves = () => {
             <tbody>
               {leaves.map((leave, index) => (
                 <tr key={leave._id}>
-                  <td>{index+1}</td>
+                  <td>{index + 1}</td>
                   <td>{new Date(leave.startDate).toLocaleDateString()}</td>
                   <td>{new Date(leave.endDate).toLocaleDateString()}</td>
                   <td>{leave.leaveType}</td>

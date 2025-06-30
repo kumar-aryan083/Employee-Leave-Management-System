@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/authContext";
 import "./styles/ResetBalances.css";
+import Loader from "../components/Loader";
 
 const ResetBalances = () => {
   const { user } = useContext(AuthContext);
@@ -11,6 +12,7 @@ const ResetBalances = () => {
 
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [newBalance, setNewBalance] = useState({
     vacation: "",
     sick: "",
@@ -28,11 +30,14 @@ const ResetBalances = () => {
   }, [user, navigate]);
 
   const fetchEmployees = async () => {
+    setLoading(true);
     try {
       const res = await axios.get("/user/managed-employees");
       setEmployees(res.data);
     } catch (err) {
       toast.error("Failed to fetch employees.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -83,7 +88,10 @@ const ResetBalances = () => {
     <div className="reset-balances-page">
       <div className="reset-balances-card">
         <h2>Reset Employee Leave Balances</h2>
-        {employees.length === 0 ? (
+
+        {loading ? (
+          <Loader />
+        ) : employees.length === 0 ? (
           <p>No employees found.</p>
         ) : (
           <table>
@@ -101,7 +109,7 @@ const ResetBalances = () => {
             <tbody>
               {employees.map((emp, index) => (
                 <tr key={emp._id}>
-                  <td>{index+1}</td>
+                  <td>{index + 1}</td>
                   <td>{emp.name}</td>
                   <td>{emp.email}</td>
                   <td>{emp.leaveBalance.vacation}</td>

@@ -1,6 +1,6 @@
 .leave-balance-page {
-  min-height: calc(100vh - 70px);
-  background: linear-gradient(to right, #b6b6c2, #2e2e48);
+  min-height: calc(100vh - 71px);
+  background: #0e2d49;
   display: flex;
   justify-content: center;
   align-items: center; 
@@ -9,9 +9,9 @@
 
 .leave-balance-card {
   background-color: #fff;
-  padding: 2rem 2.5rem;
+  padding: 1.5rem 2.5rem;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px #0e2d49;
   max-width: 420px;
   width: 100%;
   text-align: center;
@@ -24,7 +24,7 @@
 
 .leave-balance-card h2 {
   margin-bottom: 1rem;
-  color: #333;
+  color: #0e2d49;
   font-size: 1.8rem;
 }
 

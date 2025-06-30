@@ -5,6 +5,7 @@ import "./styles/PendingRequests.css";
 import { useContext } from "react";
 import { AuthContext } from "../auth/authContext";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const PendingRequests = () => {
   const { user } = useContext(AuthContext);
@@ -12,21 +13,25 @@ const PendingRequests = () => {
   const [selectedLeaveId, setSelectedLeaveId] = useState(null);
   const [selectedAction, setSelectedAction] = useState("");
   const [managerComment, setManagerComment] = useState("");
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const fetchRequests = async () => {
+    setLoading(true);
     try {
       const res = await axios.get("/leave/pending");
       setRequests(res.data);
     } catch (err) {
       toast.error("Failed to fetch pending requests.");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     if (!user || user.role !== "manager") {
       toast.error("Access denied: Managers only");
-      navigate("/"); 
+      navigate("/");
       return;
     }
     fetchRequests();
@@ -40,25 +45,25 @@ const PendingRequests = () => {
   };
 
   const handleConfirm = async () => {
-  try {
-    const res = await axios.patch(`/leave/${selectedLeaveId}/approve`, {
-      status: selectedAction,
-      managerComment: managerComment,
-    });
+    try {
+      const res = await axios.patch(`/leave/${selectedLeaveId}/approve`, {
+        status: selectedAction,
+        managerComment: managerComment,
+      });
 
-    toast.success(`Leave ${selectedAction} successfully`);
+      toast.success(`Leave ${selectedAction} successfully`);
 
-    setSelectedLeaveId(null);
-    setSelectedAction("");
-    setManagerComment("");
+      setSelectedLeaveId(null);
+      setSelectedAction("");
+      setManagerComment("");
 
-    setRequests(prev => prev.filter(l => l._id !== selectedLeaveId));
-  } catch (err) {
-    console.error(err);
-    const msg = err.response?.data?.message || "Action failed";
-    toast.error(msg);
-  }
-};
+      setRequests((prev) => prev.filter((l) => l._id !== selectedLeaveId));
+    } catch (err) {
+      console.error(err);
+      const msg = err.response?.data?.message || "Action failed";
+      toast.error(msg);
+    }
+  };
 
   const closePopup = () => {
     setSelectedLeaveId(null);
@@ -71,7 +76,9 @@ const PendingRequests = () => {
       <div className="pending-requests-card">
         <h2>Pending Leave Requests</h2>
 
-        {requests.length === 0 ? (
+        {loading ? (
+          <Loader />
+        ) : requests.length === 0 ? (
           <p>No pending requests.</p>
         ) : (
           <div className="table-wrapper">
@@ -90,7 +97,7 @@ const PendingRequests = () => {
               <tbody>
                 {requests.map((leave, index) => (
                   <tr key={leave._id}>
-                    <td>{index+1}</td>
+                    <td>{index + 1}</td>
                     <td>{leave.user?.name || "N/A"}</td>
                     <td>{leave.leaveType}</td>
                     <td>{new Date(leave.startDate).toLocaleDateString()}</td>

@@ -1,6 +1,6 @@
 .my-leaves-page {
-  min-height: calc(100vh - 70px);
-  background: linear-gradient(to right, #b6b6c2, #2e2e48);
+  min-height: calc(100vh - 71px);
+  background: #0e2d49;
   padding: 2rem;
   display: flex;
   justify-content: center;
@@ -8,7 +8,7 @@
 
 .my-leaves-card {
   background-color: #fff;
-  padding: 2rem 2.5rem;
+  padding: 1.5rem 2.5rem;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   max-width: 1100px;
@@ -22,7 +22,7 @@
 
 .my-leaves-card h2 {
   text-align: center;
-  color: #333;
+  color: #0e2d49;
   margin-bottom: 1rem;
 }
 
@@ -48,6 +48,7 @@
 }
 
 .status {
+  display: flex;
   padding: 4px 8px;
   border-radius: 4px;
   color: #fff;
@@ -56,20 +57,24 @@
 }
 
 .status.pending {
+  width: fit-content;
   background-color: #f0ad4e;
 }
 
 .status.approved {
+  width: fit-content;
   background-color: #5cb85c;
 }
 
 .status.rejected {
+  width: fit-content;
   background-color: #d9534f;
 }
 .delete-icon {
-  margin-left: 20px;
+  margin-top: 10px;
+  margin-left: 15px;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1rem;
   transition: color 0.2s ease;
 }
 
@@ -77,9 +82,10 @@
   color: #c82333;
 }
 .edit-icon {
-  margin-left: 20px;
+  margin-top: 10px;
+  margin-left: 15px;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1rem;
   transition: color 0.2s ease;
 }
 
@@ -117,7 +123,7 @@
 
 .edit-modal-content h3 {
   margin-bottom: 0.5rem;
-  color: #333;
+  color: #0e2d49;
   text-align: center;
 }
 
@@ -135,7 +141,7 @@
 .edit-modal-content textarea:focus,
 .edit-modal-content select:focus {
   outline: none;
-  border-color: #1e1e2f;
+  border-color: #0e2d49;
 }
 
 .edit-modal-actions {
@@ -156,12 +162,12 @@
 }
 
 .edit-modal-actions .approve-btn {
-  background-color: #1e1e2f;
+  background-color: #0e2d49;
   color: #fff;
 }
 
 .edit-modal-actions .approve-btn:hover {
-  background-color: #2e2e48;
+  background-color: #1d2f3f;
 }
 
 .edit-modal-actions .reject-btn {

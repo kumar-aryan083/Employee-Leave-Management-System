@@ -18,6 +18,7 @@ const LeaveCalendar = () => {
       navigate("/");
       return;
     }
+    document.title = "Leave Calendar";
     fetchCalendar();
   }, [user]);
 

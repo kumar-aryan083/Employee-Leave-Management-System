@@ -5,6 +5,7 @@ import "./styles/LeaveBalance.css";
 import { useContext } from "react";
 import { AuthContext } from "../auth/authContext";
 import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const LeaveBalance = () => {
   const {user} = useContext(AuthContext);
@@ -38,7 +39,7 @@ const LeaveBalance = () => {
         <h2>My Leave Balance</h2>
 
         {!balance ? (
-          <p>Loading...</p>
+          <Loader />
         ) : (
           <div className="balance-list">
             <div className="balance-item">

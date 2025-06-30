@@ -1,16 +1,17 @@
 .calendar-page {
-  min-height: calc(100vh - 78px);
-  background: linear-gradient(to right, #b6b6c2, #2e2e48);
+  min-height: calc(100vh - 82px);
+  background: #0e2d49;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   padding: 2rem;
+  padding-top: 5px;
   text-align: center;
 }
 
 .calendar-page h2 {
-  color: #1e1e2f;
+  color: #fff;
   margin-bottom: 1.5rem;
   font-size: 2rem;
   font-weight: 700;
@@ -42,8 +43,8 @@
 }
 
 .day-events li {
-  background: #1e1e2f;
-  color: #fff;
+  background: #00C6FF;
+  color: black;
   padding: 2px 4px;
   border-radius: 3px;
   margin: 1px 0;

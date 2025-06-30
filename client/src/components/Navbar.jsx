@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/authContext";
 import { toast } from "react-toastify";
 import "./styles/Navbar.css";
+import logoImg from "../assets/logo.png";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -20,7 +21,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-top">
         <Link to="/" className="logo">
-          Employee Leave Management System
+          <img src={logoImg} alt="Logo" className="logo-img" />
         </Link>
         <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
           ☰
@@ -41,7 +42,9 @@ const Navbar = () => {
 
         {user && (
           <>
-            <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+            <Link to="/" onClick={() => setMenuOpen(false)}>
+              Home
+            </Link>
             {user.role === "employee" && (
               <>
                 <Link to="/leave-request" onClick={() => setMenuOpen(false)}>

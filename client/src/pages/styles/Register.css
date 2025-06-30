@@ -1,7 +1,7 @@
 
 .register-page {
-  min-height: calc(100vh - 70px);
-  background: linear-gradient(to right, #b6b6c2, #2e2e48);
+  min-height: calc(100vh - 71px);
+  background: #0e2d49;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,7 +10,7 @@
 
 .register-form {
   background-color: #fff;
-  padding: 2rem 2.5rem;
+  padding: 1.5rem 2.5rem;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   width: 100%;
@@ -21,8 +21,8 @@
 }
 
 .register-form h2 {
-  margin-bottom: 0.5rem;
-  color: #333;
+  /* margin-bottom: 0.5rem; */
+  color: #0e2d49;
   text-align: center;
 }
 
@@ -39,7 +39,7 @@
 
 .register-form input:focus,
 .register-form select:focus {
-  border-color: #1e1e2f;
+  border-color: #0e2d49;
   outline: none;
 }
 
@@ -61,7 +61,7 @@
 
 .register-form button {
   padding: 0.75rem 1rem;
-  background-color: #1e1e2f;
+  background-color: #0e2d49;
   color: #fff;
   font-weight: 500;
   font-size: 1rem;
@@ -72,7 +72,7 @@
 }
 
 .register-form button:hover {
-  background-color: #2e2e48;
+  background-color: #1d2f3f;
 }
 
 .register-form .error {
@@ -87,7 +87,7 @@
 }
 
 .register-form .redirect a {
-  color: #1e1e2f;
+  color: #0e2d49;
   font-weight: 500;
   text-decoration: none;
 }
