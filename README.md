@@ -37,7 +37,7 @@ It lets:
 ---
 
 ## 📁 **Project Structure**
-    ```sh
+    ```
         employee-leave-management-system/
         ├── client/ # React frontend (Vite)
         ├── server/ # Express backend
