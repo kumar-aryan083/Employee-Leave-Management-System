@@ -238,7 +238,38 @@ export const updateLeaveRequest = async (req, res) => {
       return res.status(400).json({ message: "Cannot edit non-pending leave" });
     }
 
+    const employee = await User.findById(req.user.userId);
+    if (!employee.manager) {
+      return res
+        .status(400)
+        .json({ message: "Manager not assigned to employee" });
+    }
+
     const { leaveType, startDate, endDate, reason } = req.body;
+
+    const daysRequested =
+      (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24) + 1;
+
+    if (
+      leaveType === "vacation" &&
+      employee.leaveBalance.vacation < daysRequested
+    ) {
+      return res
+        .status(400)
+        .json({ message: "Insufficient vacation leave balance" });
+    }
+
+    if (leaveType === "sick" && employee.leaveBalance.sick < daysRequested) {
+      return res
+        .status(400)
+        .json({ message: "Insufficient sick leave balance" });
+    }
+
+    if (leaveType === "other" && employee.leaveBalance.other < daysRequested) {
+      return res
+        .status(400)
+        .json({ message: "Insufficient other leave balance" });
+    }
 
     leave.leaveType = leaveType;
     leave.startDate = startDate;
