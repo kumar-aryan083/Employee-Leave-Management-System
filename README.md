@@ -37,13 +37,14 @@ It lets:
 ---
 
 ## 📁 **Project Structure**
-
-employee-leave-management-system/
-├── client/ # React frontend (Vite)
-├── server/ # Express backend
-├── docker-compose.yml
-├── .env
-├── README.md
+    ```plaintext
+        employee-leave-management-system/
+        ├── client/ # React frontend (Vite)
+        ├── server/ # Express backend
+        ├── docker-compose.yml
+        ├── .env
+        ├── README.md
+    ```
 
 ---
 
