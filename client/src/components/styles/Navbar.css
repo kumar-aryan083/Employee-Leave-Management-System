@@ -14,7 +14,8 @@
   background-color: #0e2d49;
   color: white;
   padding: 0.65rem 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+  /* border-bottom: 0.5px solid rgba(255, 255, 255, 0.33); */
   user-select: none;
   display: flex;
   justify-content: space-between;
@@ -48,7 +49,7 @@
   font-weight: 500;
   padding: 6px 12px;
   border-radius: 4px;
-  position: relative; /* needed for pseudo-element positioning */
+  position: relative; 
   transition: color 0.2s ease;
   font-size: 1.1rem;
 }
@@ -58,13 +59,13 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 3px; /* thickness of underline */
+  height: 3px; 
   width: 100%;
-  background-color: #fff; /* underline color */
+  background-color: #fff; 
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
-  margin-top: 4px; /* spacing between text and underline (if needed) */
+  margin-top: 4px; 
 }
 
 .navbar-links a.active::after {
@@ -101,7 +102,9 @@
   .logo{
     display: none;
   }
-
+  .navbar{
+    padding: 1rem 2rem;
+  }
   .navbar-links {
     flex-direction: column;
     align-items: flex-start;

@@ -2,9 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* full height */
+  height: 100vh; 
   width: 100%;
-  background-color: #f9f9f9; /* optional, remove if not needed */
+  background-color: #f9f9f9; 
   position: fixed;
   top: 0;
   left: 0;
@@ -20,7 +20,6 @@
   animation: spin 1s linear infinite;
 }
 
-/* Spin Animation */
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
