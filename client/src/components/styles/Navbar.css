@@ -67,6 +67,10 @@
   margin-top: 4px; /* spacing between text and underline (if needed) */
 }
 
+.navbar-links a.active::after {
+  transform: scaleX(1);
+}
+
 .navbar-links a:hover::after {
   transform: scaleX(1);
 }

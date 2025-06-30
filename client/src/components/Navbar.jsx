@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/authContext";
 import { toast } from "react-toastify";
 import "./styles/Navbar.css";
@@ -17,60 +17,99 @@ const Navbar = () => {
     setMenuOpen(false);
   };
 
+  const closeMenu = () => setMenuOpen(false);
+
   return (
     <nav className="navbar">
       <div className="navbar-top">
-        <Link to="/" className="logo">
+        <NavLink to="/" className="logo" onClick={closeMenu}>
           <img src={logoImg} alt="Logo" className="logo-img" />
-        </Link>
+        </NavLink>
         <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
           ☰
         </button>
       </div>
 
       <div className={`navbar-links ${menuOpen ? "open" : ""}`}>
-        {!user && (
+        {!user ? (
           <>
-            <Link to="/login" onClick={() => setMenuOpen(false)}>
+            <NavLink
+              to="/login"
+              onClick={closeMenu}
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
               Login
-            </Link>
-            <Link to="/register" onClick={() => setMenuOpen(false)}>
+            </NavLink>
+            <NavLink
+              to="/register"
+              onClick={closeMenu}
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
               Register
-            </Link>
+            </NavLink>
           </>
-        )}
-
-        {user && (
+        ) : (
           <>
-            <Link to="/" onClick={() => setMenuOpen(false)}>
+            <NavLink
+              to="/"
+              onClick={closeMenu}
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
               Home
-            </Link>
+            </NavLink>
+
             {user.role === "employee" && (
               <>
-                <Link to="/leave-request" onClick={() => setMenuOpen(false)}>
+                <NavLink
+                  to="/leave-request"
+                  onClick={closeMenu}
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                >
                   Request Leave
-                </Link>
-                <Link to="/my-leaves" onClick={() => setMenuOpen(false)}>
+                </NavLink>
+                <NavLink
+                  to="/my-leaves"
+                  onClick={closeMenu}
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                >
                   My Leaves
-                </Link>
-                <Link to="/leave-balance" onClick={() => setMenuOpen(false)}>
+                </NavLink>
+                <NavLink
+                  to="/leave-balance"
+                  onClick={closeMenu}
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                >
                   Leave Balance
-                </Link>
+                </NavLink>
               </>
             )}
+
             {user.role === "manager" && (
               <>
-                <Link to="/pending" onClick={() => setMenuOpen(false)}>
+                <NavLink
+                  to="/pending"
+                  onClick={closeMenu}
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                >
                   Pending Requests
-                </Link>
-                <Link to="/reset-leave" onClick={() => setMenuOpen(false)}>
+                </NavLink>
+                <NavLink
+                  to="/reset-leave"
+                  onClick={closeMenu}
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                >
                   Reset Balances
-                </Link>
-                <Link to="/calendar" onClick={() => setMenuOpen(false)}>
+                </NavLink>
+                <NavLink
+                  to="/calendar"
+                  onClick={closeMenu}
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                >
                   Calendar
-                </Link>
+                </NavLink>
               </>
             )}
+
             <button onClick={handleLogout}>Logout</button>
           </>
         )}
