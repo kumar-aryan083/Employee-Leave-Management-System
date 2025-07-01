@@ -5,16 +5,18 @@ import "./styles/Login.css";
 import { AuthContext } from "../auth/authContext";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import Loader from "../components/Loader";
 
 const Login = () => {
   const { login, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if(user){
-      toast("Logout first to login again!!")
+    if (user) {
+      toast("Logout first to login again!!");
       navigate("/");
     }
     document.title = "Login";
@@ -23,15 +25,17 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const res = await axios.post("/auth/login", formData);
       login(res.data.token);
       toast.success(res.data.message);
       navigate("/");
     } catch (err) {
       const serverMsg =
-        err?.response?.data?.message ||
-        "Login failed. Please try again.";
+        err?.response?.data?.message || "Login failed. Please try again.";
       toast.error(serverMsg);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -57,8 +61,7 @@ const Login = () => {
           }
           required
         />
-
-        <button type="submit">Login</button>
+        {loading ? <Loader /> : <button type="submit">Login</button>}
         <p className="redirect">
           Don't have an account? <Link to="/register">Register</Link>
         </p>

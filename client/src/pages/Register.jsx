@@ -4,9 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./styles/Register.css";
 import { AuthContext } from "../auth/authContext";
+import Loader from "../components/Loader";
 
 const Register = () => {
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -18,12 +19,13 @@ const Register = () => {
     manager: "",
   });
   const [managers, setManagers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if(user){
-      toast("Logout first to Register!!")
+    if (user) {
+      toast("Logout first to Register!!");
       navigate("/");
     }
     document.title = "Register";
@@ -53,6 +55,7 @@ const Register = () => {
     }
 
     try {
+      setLoading(true);
       const res = await axios.post("/auth/register", formData);
       navigate("/login");
       toast.success(res.data.message || "Registration successful!");
@@ -61,6 +64,8 @@ const Register = () => {
         err?.response?.data?.message ||
         "Registration failed. Please try again.";
       toast.error(serverMsg);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -88,26 +93,26 @@ const Register = () => {
         />
 
         <div className="password-group">
-  <input
-    type="password"
-    placeholder="Password"
-    value={formData.password}
-    onChange={(e) =>
-      setFormData({ ...formData, password: e.target.value })
-    }
-    required
-  />
+          <input
+            type="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
+            required
+          />
 
-  <input
-    type="password"
-    placeholder="Confirm Password"
-    value={formData.confirmPassword}
-    onChange={(e) =>
-      setFormData({ ...formData, confirmPassword: e.target.value })
-    }
-    required
-  />
-</div>
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={formData.confirmPassword}
+            onChange={(e) =>
+              setFormData({ ...formData, confirmPassword: e.target.value })
+            }
+            required
+          />
+        </div>
 
         <select
           value={formData.role}
@@ -135,7 +140,7 @@ const Register = () => {
           </select>
         )}
 
-        <button type="submit">Register</button>
+        {loading ? <Loader /> : <button type="submit">Register</button>}
         <p className="redirect">
           Already have an account? <Link to="/login">Login</Link>
         </p>

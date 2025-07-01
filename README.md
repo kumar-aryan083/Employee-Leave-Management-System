@@ -10,8 +10,7 @@ It lets:
 
 ### Deployment:
 
-**🌐 Frontend:** [https://employee-leave-management-system-alpha.vercel.app/](https://employee-leave-management-system-alpha.vercel.app/)  
-**🔗 Backend API:** [https://employee-leave-management-system-backend-9ljp.onrender.com/](https://employee-leave-management-system-backend-9ljp.onrender.com/)
+**🌐 Live Demo:** [https://employee-leave-management-system-alpha.vercel.app/](https://employee-leave-management-system-alpha.vercel.app/)  
 
 
 ---
